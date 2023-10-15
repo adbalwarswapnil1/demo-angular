@@ -1,0 +1,199 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+    </ol>
+</nav>
+
+<h5>Dashboard</h5>
+<div class="row">
+    <div class="col-lg-3 rounded pb-3" style="background-color:grey">
+        <div class="row">
+            <div class="col-11 text-center mx-auto rounded pt-2 pb-2 mt-2 front-weight-bold"
+                style="background-color:lightgrey ;">
+                {{Designation}}
+            </div>
+            <div class="col-12 text-center rounded mt-2" width="120 px">
+                <img src="assets/images/user.png">
+            </div>
+            <div class="col-12 text-center pt-2 pb-2 front-weight-bold">
+                {{UserName}}
+            </div>
+            <div class="col-12 mb-1 text-center pb-2 pt-2 ">
+                TEAM SUMMARY</div>
+            <div class="col-12 mb-3">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-item-center">
+                        NO. OF TEAM MEMBERS
+                        <span class="badge badge-pill badge-dark"
+                            style="font-size: 13 px; background-color: grey;">{{NoOfTeamMembers}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-item-center">
+                        TOTAL NUMBER OF PROJECTS
+                        <span class="badge badge-pill badge-dark"
+                            style="font-size: 13 px; background-color: grey;">{{TotalCostOfAllProjects |
+                            currency}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-item-center">
+                        PENDING TASKS
+                        <span class="badge badge-pill badge-dark"
+                            style="font-size: 13 px; background-color: grey;">{{PendingTask}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-item-center">
+                        UPCOMING PROJECTS
+                        <span class="badge badge-pill badge-dark"
+                            style="font-size: 13 px; background-color: grey;">{{UpComingProject}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-item-center">
+                        PROJECT COST
+                        <span class="badge badge-pill badge-dark"
+                            style="font-size: 13 px; background-color: grey;">{{ProjectCost | currency}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-item-center">
+                        CURRENT EXPENDITURE
+                        <span class="badge badge-pill badge-dark"
+                            style="font-size: 13 px; background-color: grey;">{{CurrentExpenditure | currency}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-item-center">
+                        AVAILABLE FUNDS
+                        <span class="badge badge-pill badge-dark"
+                            style="font-size: 13 px; background-color: grey;">{{AvailableFunds | currency}}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-12 text-center pt-2 pb-2">CLIENTS</div>
+            <div class="rounded col-12 ">
+                <ul class="list-group list-group-flush rounded" *ngFor="let client of Clients">
+                    <li class="list-group-item">{{client}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-6">
+        <div class="row">
+            <div class="col-12 pt-0 pb-2 rounded " style="background-color: grey;">
+                <div class="row mt-2">
+                    <div class="col-6 text-left">
+                        <div ngbDropdown class="dropdown">
+                            <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton1"
+                                aria-expanded="false">
+                                PROJECT A
+                            </button>
+                            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
+                                <li><a ngbDropdownItem #val *ngFor="let project of Projects"
+                                        (click)="onprojectchange(project)">{{project}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-6 float-right">
+
+                        <div ngbDropdown class="dropdown">
+                            <button ngbDropdownToggle class="btn btn-secondary" type="button" id="dropdownMenuButton1"
+                                aria-expanded="false">
+                                2018
+                            </button>
+                            <ul ngbDropdownMenu aria-labelledby="dropdownMenuButton1">
+                                <li><a ngbDropdownItem *ngFor="let year of Years"
+                                        (click)="onyearchange(year)">{{year}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-11 mx-auto mt-2 text-center pt-2 pb-2 mx-auto rounded font-weight-bold"
+                style="background-color: lightgrey;">PROJECT BREIFING</div>
+            <div class="col-12">
+                <table class="table table-borderless">
+                    <tr>
+                        <td>Project Cost</td>
+                        <td>{{ProjectCost | currency}}</td>
+                    </tr>
+                    <tr>
+                        <td>Current Expenditure</td>
+                        <td>{{CurrentExpenditure | currency}}</td>
+                    </tr>
+                    <tr>
+                        <td>Available Funds</td>
+                        <td>{{AvailableFunds | currency}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-11 mx-auto mt-1 text-center pt-2 pb-2 mx-2 rounded font-weight-bold"
+                style="background-color: lightgrey;">
+                Team Member Summary
+            </div>
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Region</th>
+                            <th>Team Member Count</th>
+                            <th>Temporarily Unavailable Member</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let summary of TeamMemberSummary">
+                            <td>
+                                <b>{{summary.Region}}</b>
+                            </td>
+                            <td>
+                                {{summary.TeamMembersCount}}
+                            </td>
+                            <td>
+                                {{summary.TemporarilyUnavailableMembers}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="col-lg-3" style="background-color: grey;">
+        <div class="row ">
+            <div class="col-11 mx-auto text-center pt-1 pb-2 mx-2 rounded font-weight-bold"
+                style="background-color: lightgrey;">
+                Team Members
+            </div>
+            <div class="accordian">
+                <div class="card" *ngFor="let teammember of TeamMembers; let i=index">
+                    <div class="card-header bg-secondary" [id]="'card'+ i">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link text-white" type="button" data-toggle="collapse"
+                                [attr.data-target]="'card'+i">
+                                {{teammember.Region}}
+                            </button>
+                        </h2>
+                    </div>
+                    <div [id]="'cardbody'+i" class="collapse show" [attr.data-parent]="'accordian'+i">
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <td>Name</td>
+                                        <td>Status</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let member of teammember.Members">
+                                        <td>{{member.ID}}</td>
+                                        <td [style.color]="(member.Status=='Available')?'green':'red'">{{member.Name}}
+                                        </td>
+                                        <td>{{member.Status}}</td>
+                                    </tr>
+                                </tbody>
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>

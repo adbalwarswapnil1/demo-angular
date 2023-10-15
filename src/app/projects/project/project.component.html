@@ -1,0 +1,9 @@
+<p>{{currentProject | json}}</p>
+<div>
+    <button
+                    class="btn btn-info"
+                    (click)="oneditclick($event, currentindex)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editModal"
+                  >edit</button>
+</div>
